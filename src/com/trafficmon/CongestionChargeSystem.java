@@ -1,13 +1,13 @@
 package com.trafficmon;
 
-import java.math.BigDecimal;
+import java.math.BigDecimal; //used to deal with doubles accurately
 import java.util.*;
 
 public class CongestionChargeSystem {
 
-    public static final BigDecimal CHARGE_RATE_POUNDS_PER_MINUTE = new BigDecimal(0.05);
+    public static final BigDecimal CHARGE_RATE_POUNDS_PER_MINUTE = new BigDecimal(0.05);  //sets value of 5p
 
-    private final List<ZoneBoundaryCrossing> eventLog = new ArrayList<ZoneBoundaryCrossing>();
+    private final List<ZoneBoundaryCrossing> eventLog = new ArrayList<ZoneBoundaryCrossing>(); //list of entry and exit events
 
     public void vehicleEnteringZone(Vehicle vehicle) {
         eventLog.add(new EntryEvent(vehicle));
@@ -20,7 +20,7 @@ public class CongestionChargeSystem {
         eventLog.add(new ExitEvent(vehicle));
     }
 
-    //
+    //parent class
     public void calculateCharges() {
 
         Map<Vehicle, List<ZoneBoundaryCrossing>> crossingsByVehicle = new HashMap<Vehicle, List<ZoneBoundaryCrossing>>();
@@ -28,8 +28,8 @@ public class CongestionChargeSystem {
         for (ZoneBoundaryCrossing crossing : eventLog) {
             if (!crossingsByVehicle.containsKey(crossing.getVehicle())) {
                 crossingsByVehicle.put(crossing.getVehicle(), new ArrayList<ZoneBoundaryCrossing>());
-            }
-            crossingsByVehicle.get(crossing.getVehicle()).add(crossing);
+            } //if no existing crossings for vehicle, add a new crossing
+            crossingsByVehicle.get(crossing.getVehicle()).add(crossing); //adds new crossing to vehicle that already has crossings
         }
 
         for (Map.Entry<Vehicle, List<ZoneBoundaryCrossing>> vehicleCrossings : crossingsByVehicle.entrySet()) {
@@ -83,6 +83,7 @@ public class CongestionChargeSystem {
         return false;
     }
 
+    //makes sure exit is after entry
     private boolean checkOrderingOf(List<ZoneBoundaryCrossing> crossings) {
 
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
@@ -103,6 +104,7 @@ public class CongestionChargeSystem {
         return true;
     }
 
+    //just does subtraction for minutes
     private int minutesBetween(long startTimeMs, long endTimeMs) {
         return (int) Math.ceil((endTimeMs - startTimeMs) / (1000.0 * 60.0));
     }
