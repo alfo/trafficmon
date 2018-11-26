@@ -4,7 +4,7 @@ public class Vehicle {
 
     private final String registration;
 
-    private Vehicle(String registration) {
+    Vehicle(String registration) {
         this.registration = registration;
     }
 
