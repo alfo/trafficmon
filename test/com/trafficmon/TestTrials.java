@@ -110,12 +110,12 @@ public class TestTrials {
 //    want to test exceptions
 //    first look at where exceptions are called in code
 
-    @Test(expected = IndexOutOfBoundsException.class)
-//  this is how to test exceptions in JUnit - since exception is thrown, test passes
-    public void empty()
-    {
-        new ArrayList<Object>().get(0);
-    }
+//    @Test(expected = IndexOutOfBoundsException.class)
+////  this is how to test exceptions in JUnit - since exception is thrown, test passes
+//    public void empty()
+//    {
+//        new ArrayList<Object>().get(0);
+//    }
 
 //  can check if there is sufficient credit, if not, exception should be thrown
 //  can check if account is registered, if not, exception should be thrown
@@ -133,6 +133,16 @@ public class TestTrials {
 //        List<ZoneBoundaryCrossing> crossings = new ArrayList<ZoneBoundaryCrossing>();
 //        assertTrue(congestionChargeSystem.checkOrderingOf(crossings));
 //
+//    }
+
+
+    //    public void checkThatVehicleDoesNotEnterTwiceBeforeExiting()
+//    {
+//        congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("ABC"));
+//        congestionChargeSystem.vehicleLeavingZone(Vehicle.withRegistration("ABC"));
+//        congestionChargeSystem.calculateCharges();
+//        List<ZoneBoundaryCrossing> list1 = congestionChargeSystem.getCrossingsByVehicleValue("ABC");
+//        assertThat(list1.size(), is(2));
 //    }
 
 

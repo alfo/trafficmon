@@ -81,16 +81,37 @@ public class CongestionChargeSystem {
 
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
 
-            if (crossing instanceof ExitEvent) {
-                charge = charge.add(
-                        new BigDecimal(minutesBetween(lastEvent.timestamp(), crossing.timestamp()))
-                                .multiply(CHARGE_RATE_POUNDS_PER_MINUTE));
+//            if (crossing instanceof ExitEvent) {
+//                charge = charge.add(
+//                        new BigDecimal(minutesBetween(lastEvent.timestamp(), crossing.timestamp()))
+//                                .multiply(CHARGE_RATE_POUNDS_PER_MINUTE));
+//            }
+//
+//            if(crossing instanceof EntryEvent && crossing.timestamp() == System.currentTimeMillis())
+//            {
+//                charge = charge.add(new BigDecimal(0.10));
+//            }
+
+            int duration = minutesBetween(lastEvent.timestamp(), crossing.timestamp());
+            if(crossing instanceof ExitEvent)
+            {
+                if(lastEvent instanceof EntryEvent && lastEvent.timestampHour() < 14 && duration <= 4)
+                {
+                    charge = charge.add(new BigDecimal(6.00));
+                }
+
+                if(lastEvent instanceof EntryEvent && lastEvent.timestampHour() > 14 && duration <= 4)
+                {
+                    charge = charge.add(new BigDecimal(4.00));
+                }
+
+                if(lastEvent instanceof EntryEvent && duration > 4)
+                {
+                    charge = charge.add(new BigDecimal(12.00));
+                }
             }
 
-            if(crossing instanceof EntryEvent && crossing.timestamp() == System.currentTimeMillis())
-            {
-                charge = charge.add(new BigDecimal(0.10));
-            }
+
 
 
             lastEvent = crossing;
@@ -99,6 +120,14 @@ public class CongestionChargeSystem {
 
         return charge;
     }
+
+//    protected void leaveAndComeBackWithin4Hours()
+//    {
+//        for (Vehicle vehicle : crossingsByVehicle.keySet())
+//        {
+//            //entryEvent.timestampHours() - exitEvent.timestampHours() < 4
+//        }
+//    }
 
     private boolean previouslyRegistered(Vehicle vehicle) {
         for (ZoneBoundaryCrossing crossing : eventLog) {
@@ -113,14 +142,14 @@ public class CongestionChargeSystem {
     protected boolean checkOrderingOf(List<ZoneBoundaryCrossing> crossings) {
 
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
-
+        //0th index is the first vehicle that entered, for example in the day
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
             if (crossing.timestamp() < lastEvent.timestamp()) {
                 return false;
-            }
+            } //this means that crossing.timestamp() should be greater than lastEvent.timestamp()
             if (crossing instanceof EntryEvent && lastEvent instanceof EntryEvent) {
                 return false;
-            }
+            } //can't have two entries for one vehicle
             if (crossing instanceof ExitEvent && lastEvent instanceof ExitEvent) {
                 return false;
             }

@@ -14,11 +14,13 @@ import java.util.Map;
 import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertFalse;
 
 public class CongestionChargeSystemTest {
 
     CongestionChargeSystem congestionChargeSystem = new CongestionChargeSystem();
     Map<Vehicle, List<ZoneBoundaryCrossing>> map1 = congestionChargeSystem.getCrossingsByVehicle();
+    ArrayList<ZoneBoundaryCrossing> list = new ArrayList<ZoneBoundaryCrossing>();
 
 
     @Test
@@ -73,7 +75,7 @@ public class CongestionChargeSystemTest {
 
     @Test
 
-    public void crossingAddedTwiceButVehicleOnlAddedOnce()
+    public void crossingAddedTwiceButVehicleOnlyAddedOnce()
     {
         congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("ABC"));
         congestionChargeSystem.vehicleLeavingZone(Vehicle.withRegistration("ABC"));
@@ -82,5 +84,39 @@ public class CongestionChargeSystemTest {
         assertThat(list1.size(), is(2));
         assertThat(map1.size(), is(1));
     }
+
+    @Test
+
+    public void checkThatVehicleDoesNotEnterTwiceBeforeExiting()
+    {
+
+        Vehicle vehicle = new Vehicle("ABC");
+        list.add(new EntryEvent(vehicle));
+        list.add(new EntryEvent(vehicle));
+        assertFalse(congestionChargeSystem.checkOrderingOf(list));
+    }
+
+    @Test
+
+    public void checkThatVehicleCanEnterExitEnter()
+    {
+        Vehicle vehicle = new Vehicle("ABC");
+        list.add(new EntryEvent(vehicle));
+        list.add(new ExitEvent(vehicle));
+        list.add(new EntryEvent(vehicle));
+        assertTrue(congestionChargeSystem.checkOrderingOf(list));
+    }
+
+    @Test
+
+    public void checkThatVehicleDoesNotExitTwiceBeforeEntering()
+    {
+
+        Vehicle vehicle = new Vehicle("DEF");
+        list.add(new ExitEvent(vehicle));
+        list.add(new ExitEvent(vehicle));
+        assertFalse(congestionChargeSystem.checkOrderingOf(list));
+    }
+
 
 }

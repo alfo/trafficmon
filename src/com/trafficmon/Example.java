@@ -1,5 +1,7 @@
 package com.trafficmon;
 
+import org.joda.time.DateTime;
+
 public class Example {
 
     public static void main(String[] args) throws Exception {
@@ -19,7 +21,11 @@ public class Example {
         congestionChargeSystem.calculateCharges();
 
 
-        System.out.println("Test");
+
+
+//        DateTime dt = new DateTime();
+//        int hour = dt.getHourOfDay();
+//        System.out.println(hour);
 
     }
 
