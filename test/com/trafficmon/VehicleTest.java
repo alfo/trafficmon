@@ -8,7 +8,8 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 
-public class testVehicle{
+public class VehicleTest
+{
 
     @Test
 
@@ -18,10 +19,7 @@ public class testVehicle{
         Vehicle a = new Vehicle("ABC");
         //Vehicle b = new Vehicle.withRegistration("ABC");
         Vehicle b = new Vehicle("ABC");
-
-        //assertThat(a.equals(b), is(true));
         assertTrue(a.equals(b));
-        //assertThat(b.equals(a), is(true));
         assertTrue(b.equals(a));
 
     }

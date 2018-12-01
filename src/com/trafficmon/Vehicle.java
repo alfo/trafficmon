@@ -35,3 +35,4 @@ public class Vehicle {
         return registration != null ? registration.hashCode() : 0;
     }
 }
+
