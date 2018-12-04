@@ -12,6 +12,16 @@ public class CongestionChargeSystem {
 
     private Map<Vehicle, List<ZoneBoundaryCrossing>> crossingsByVehicle = new HashMap<Vehicle, List<ZoneBoundaryCrossing>>();
 
+    private final Clock clock;
+
+    public CongestionChargeSystem() {
+        clock = new SystemClock();
+    }
+
+    public CongestionChargeSystem(Clock clock)
+    {
+        this.clock = clock;
+    }
     protected Map<Vehicle, List<ZoneBoundaryCrossing>> getCrossingsByVehicle() {
         return crossingsByVehicle;
     }
@@ -33,8 +43,8 @@ public class CongestionChargeSystem {
         }
         eventLog.add(new ExitEvent(vehicle));
     }
-
     //parent class
+
     public void calculateCharges() {
 
 //        Map<Vehicle, List<ZoneBoundaryCrossing>> crossingsByVehicle = new HashMap<Vehicle, List<ZoneBoundaryCrossing>>();
@@ -71,13 +81,14 @@ public class CongestionChargeSystem {
         //else, if the vehicle already exists in the hashmap, add the crossing time to the vehicle
 
     }
-
     // change the most
-    private BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
+
+    protected BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
 
         BigDecimal charge = new BigDecimal(0);
 
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
+
 
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
 
@@ -92,35 +103,31 @@ public class CongestionChargeSystem {
 //                charge = charge.add(new BigDecimal(0.10));
 //            }
 
-            int duration = minutesBetween(lastEvent.timestamp(), crossing.timestamp());
-            if(crossing instanceof ExitEvent)
-            {
-                if(lastEvent instanceof EntryEvent && lastEvent.timestampHour() < 14 && duration <= 4)
-                {
-                    charge = charge.add(new BigDecimal(6.00));
-                }
-
-                if(lastEvent instanceof EntryEvent && lastEvent.timestampHour() > 14 && duration <= 4)
-                {
-                    charge = charge.add(new BigDecimal(4.00));
-                }
-
-                if(lastEvent instanceof EntryEvent && duration > 4)
-                {
-                    charge = charge.add(new BigDecimal(12.00));
-                }
-            }
-
-
-
-
-            lastEvent = crossing;
+//            int duration = minutesBetween(lastEvent.timestamp(), crossing.timestamp());
+//
+//            if(crossing instanceof ExitEvent)
+//            {
+//                if(lastEvent instanceof EntryEvent && lastEvent.timestampHour() < 14  && duration <= 4)
+//                {
+//                    charge = charge.add(new BigDecimal(6.00));
+//                }
+//
+//                if(lastEvent instanceof EntryEvent && lastEvent.timestampHour() >= 14 && duration <= 4)
+//                {
+//                    charge = charge.add(new BigDecimal(4.00));
+//                }
+//
+//                if(lastEvent instanceof EntryEvent && duration > 4)
+//                {
+//                    charge = charge.add(new BigDecimal(12.00));
+//                }
+//            }
+//            lastEvent = crossing;
 
         }
 
         return charge;
     }
-
 //    protected void leaveAndComeBackWithin4Hours()
 //    {
 //        for (Vehicle vehicle : crossingsByVehicle.keySet())
@@ -128,6 +135,7 @@ public class CongestionChargeSystem {
 //            //entryEvent.timestampHours() - exitEvent.timestampHours() < 4
 //        }
 //    }
+
 
     private boolean previouslyRegistered(Vehicle vehicle) {
         for (ZoneBoundaryCrossing crossing : eventLog) {
@@ -137,8 +145,8 @@ public class CongestionChargeSystem {
         }
         return false;
     }
-
     //makes sure exit is after entry
+
     protected boolean checkOrderingOf(List<ZoneBoundaryCrossing> crossings) {
 
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
@@ -158,8 +166,8 @@ public class CongestionChargeSystem {
 
         return true;
     }
-
     //just does subtraction for minutes
+
     protected int minutesBetween(long startTimeMs, long endTimeMs) {
         return (int) Math.ceil((endTimeMs - startTimeMs) / (1000.0 * 60.0));  //ceil rounds up
     }
@@ -168,7 +176,7 @@ public class CongestionChargeSystem {
         return eventLog.size();
     }
 
-
+    //LocalTime now = clock.now();
 
 
 }
