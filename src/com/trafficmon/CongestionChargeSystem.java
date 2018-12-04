@@ -77,48 +77,55 @@ public class CongestionChargeSystem {
 
         BigDecimal charge = new BigDecimal(0);
 
+        int counter = 1;
+        boolean chargeThisTime = true;
+
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
 
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
 
             long duration = secondsBetween(lastEvent.timestamp(), crossing.timestamp());
 
+            System.out.println(crossings.get(counter));
+
             if(crossing instanceof ExitEvent)
             {
-                if(lastEvent instanceof EntryEvent && duration > 14400)
-                {
-                    charge = charge.add(new BigDecimal(12.00));
+
+                if (counter > 1) {
+
+                    long thisEntry = lastEvent.timestamp();
+                    long exitFromEarlier = crossings.get(counter - 2).timestamp();
+
+                    if (secondsBetween(thisEntry, exitFromEarlier) < 14400) {
+                        chargeThisTime = false;
+                    }
                 }
 
-                if(lastEvent instanceof EntryEvent && lastEvent.timestampHour() < 14 && duration <= 14400)
-                {
-                    charge = charge.add(new BigDecimal(6.00));
+                if (crossings.size() <= 2 || chargeThisTime) {
+
+                    if (lastEvent instanceof EntryEvent && duration > 14400) {
+                        charge = charge.add(new BigDecimal(12.00));
+                    }
+
+                    if (lastEvent instanceof EntryEvent && lastEvent.timestampHour() < 14 && duration <= 14400) {
+                        charge = charge.add(new BigDecimal(6.00));
+                    }
+
+                    if (lastEvent instanceof EntryEvent && lastEvent.timestampHour() >= 14 && duration <= 14400) {
+                        charge = charge.add(new BigDecimal(4.00));
+                    }
                 }
 
-                if(lastEvent instanceof EntryEvent && lastEvent.timestampHour() >= 14 && duration <= 14400)
-                {
-                    charge = charge.add(new BigDecimal(4.00));
-                }
 
             }
 
-
-
-
             lastEvent = crossing;
+            counter++;
 
         }
 
         return charge;
     }
-
-//    protected void leaveAndComeBackWithin4Hours()
-//    {
-//        for (Vehicle vehicle : crossingsByVehicle.keySet())
-//        {
-//            //entryEvent.timestampHours() - exitEvent.timestampHours() < 4
-//        }
-//    }
 
     private boolean previouslyRegistered(Vehicle vehicle) {
         for (ZoneBoundaryCrossing crossing : eventLog) {

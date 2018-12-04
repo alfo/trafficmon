@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ed91051-6a52-4277-9775-a0a1fc794d8d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/trafficmon/ZoneBoundaryCrossing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/trafficmon/ZoneBoundaryCrossing.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/com/trafficmon/CongestionChargeSystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/com/trafficmon/CongestionChargeSystemTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -57,46 +55,39 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="16869" />
+          <entry key="java" value="17968" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="16869" />
+          <entry key="JAVA" value="17968" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="102" column="13" lean-forward="true" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
+            <state relative-caret-position="261">
+              <caret line="93" column="31" selection-start-line="93" selection-start-column="31" selection-end-line="93" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5757#5758#0" expanded="true" />
-                <element signature="e#5805#5806#0" expanded="true" />
+                <element signature="e#5980#5981#0" expanded="true" />
+                <element signature="e#6028#6029#0" expanded="true" />
+                <element signature="e#6053#6054#0" expanded="true" />
+                <element signature="e#6091#6092#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/com/trafficmon/CongestionChargeSystemTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="159" lean-forward="true" selection-start-line="159" selection-end-line="159" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/trafficmon/ZoneBoundaryCrossing.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="33" column="20" lean-forward="true" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
+            <state relative-caret-position="499">
+              <caret line="186" column="28" selection-start-line="186" selection-start-column="26" selection-end-line="186" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -137,8 +128,8 @@
         <option value="$PROJECT_DIR$/src/com/trafficmon/Example.java" />
         <option value="$PROJECT_DIR$/src/com/trafficmon/TrialControllableClock.java" />
         <option value="$PROJECT_DIR$/src/com/trafficmon/ZoneBoundaryCrossing.java" />
-        <option value="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" />
         <option value="$PROJECT_DIR$/test/com/trafficmon/CongestionChargeSystemTest.java" />
+        <option value="$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java" />
       </list>
     </option>
   </component>
@@ -203,7 +194,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543947384964" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543950639255" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -234,8 +225,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CongestionChargeSystemTest.testChargingWholeDay">
-    <configuration name="CongestionChargeSystemTest.checkSecondsBetween" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CongestionChargeSystemTest.testChargingMultipleTimesMoreThan4Hours">
+    <configuration name="CongestionChargeSystemTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="trafficmon" />
       <extension name="coverage">
         <pattern>
@@ -245,7 +236,53 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.trafficmon" />
       <option name="MAIN_CLASS_NAME" value="com.trafficmon.CongestionChargeSystemTest" />
-      <option name="METHOD_NAME" value="checkSecondsBetween" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CongestionChargeSystemTest.ifYouLeaveAndComeBackWithin4HoursNotChargedTwice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="trafficmon" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.trafficmon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.trafficmon" />
+      <option name="MAIN_CLASS_NAME" value="com.trafficmon.CongestionChargeSystemTest" />
+      <option name="METHOD_NAME" value="ifYouLeaveAndComeBackWithin4HoursNotChargedTwice" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CongestionChargeSystemTest.testChargingMultipleTimesLessThan4Hours" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="trafficmon" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.trafficmon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.trafficmon" />
+      <option name="MAIN_CLASS_NAME" value="com.trafficmon.CongestionChargeSystemTest" />
+      <option name="METHOD_NAME" value="testChargingMultipleTimesLessThan4Hours" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CongestionChargeSystemTest.testChargingMultipleTimesMoreThan4Hours" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="trafficmon" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.trafficmon.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.trafficmon" />
+      <option name="MAIN_CLASS_NAME" value="com.trafficmon.CongestionChargeSystemTest" />
+      <option name="METHOD_NAME" value="testChargingMultipleTimesMoreThan4Hours" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -267,68 +304,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CongestionChargeSystemTest.testingCharging3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="trafficmon" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.trafficmon.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.trafficmon" />
-      <option name="MAIN_CLASS_NAME" value="com.trafficmon.CongestionChargeSystemTest" />
-      <option name="METHOD_NAME" value="testingCharging3" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CongestionChargeSystemTest.testingChargingAfter2pm" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="trafficmon" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.trafficmon.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.trafficmon" />
-      <option name="MAIN_CLASS_NAME" value="com.trafficmon.CongestionChargeSystemTest" />
-      <option name="METHOD_NAME" value="testingChargingAfter2pm" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CongestionChargeSystemTest.testingChargingBefore2pm" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="trafficmon" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.trafficmon.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.trafficmon" />
-      <option name="MAIN_CLASS_NAME" value="com.trafficmon.CongestionChargeSystemTest" />
-      <option name="METHOD_NAME" value="testingChargingBefore2pm" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
-      <item itemvalue="JUnit.CongestionChargeSystemTest.testingCharging3" />
       <item itemvalue="JUnit.CongestionChargeSystemTest.testChargingWholeDay" />
-      <item itemvalue="JUnit.CongestionChargeSystemTest.testingChargingAfter2pm" />
-      <item itemvalue="JUnit.CongestionChargeSystemTest.testingChargingBefore2pm" />
-      <item itemvalue="JUnit.CongestionChargeSystemTest.checkSecondsBetween" />
+      <item itemvalue="JUnit.CongestionChargeSystemTest.ifYouLeaveAndComeBackWithin4HoursNotChargedTwice" />
+      <item itemvalue="JUnit.CongestionChargeSystemTest.testChargingMultipleTimesLessThan4Hours" />
+      <item itemvalue="JUnit.CongestionChargeSystemTest.testChargingMultipleTimesMoreThan4Hours" />
+      <item itemvalue="JUnit.CongestionChargeSystemTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CongestionChargeSystemTest.testChargingMultipleTimesMoreThan4Hours" />
+        <item itemvalue="JUnit.CongestionChargeSystemTest.testChargingMultipleTimesLessThan4Hours" />
+        <item itemvalue="JUnit.CongestionChargeSystemTest" />
         <item itemvalue="JUnit.CongestionChargeSystemTest.testChargingWholeDay" />
-        <item itemvalue="JUnit.CongestionChargeSystemTest.testingChargingBefore2pm" />
-        <item itemvalue="JUnit.CongestionChargeSystemTest.testingChargingAfter2pm" />
-        <item itemvalue="JUnit.CongestionChargeSystemTest.checkSecondsBetween" />
-        <item itemvalue="JUnit.CongestionChargeSystemTest.testingCharging3" />
+        <item itemvalue="JUnit.CongestionChargeSystemTest.ifYouLeaveAndComeBackWithin4HoursNotChargedTwice" />
       </list>
     </recent_temporary>
   </component>
@@ -367,44 +356,44 @@
       <workItem from="1543940391042" duration="23000" />
       <workItem from="1543944895728" duration="23000" />
       <workItem from="1543945909797" duration="71000" />
-      <workItem from="1543946045720" duration="1335000" />
+      <workItem from="1543946045720" duration="4370000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="CongestionChargeSystemTest_testChargingWholeDay - 2018.12.04 at 18h 07m 58s.xml">
-      <configuration name="CongestionChargeSystemTest.testChargingWholeDay" configurationId="JUnit" />
+    <history-entry file="CongestionChargeSystemTest_testChargingMultipleTimesLessThan4Hours - 2018.12.04 at 19h 01m 05s.xml">
+      <configuration name="CongestionChargeSystemTest.testChargingMultipleTimesLessThan4Hours" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CongestionChargeSystemTest_testChargingWholeDay - 2018.12.04 at 18h 09m 03s.xml">
-      <configuration name="CongestionChargeSystemTest.testChargingWholeDay" configurationId="JUnit" />
+    <history-entry file="CongestionChargeSystemTest_testChargingMultipleTimesLessThan4Hours - 2018.12.04 at 19h 01m 53s.xml">
+      <configuration name="CongestionChargeSystemTest.testChargingMultipleTimesLessThan4Hours" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CongestionChargeSystemTest_testChargingWholeDay - 2018.12.04 at 18h 09m 45s.xml">
-      <configuration name="CongestionChargeSystemTest.testChargingWholeDay" configurationId="JUnit" />
+    <history-entry file="CongestionChargeSystemTest_testChargingMultipleTimesLessThan4Hours - 2018.12.04 at 19h 03m 02s.xml">
+      <configuration name="CongestionChargeSystemTest.testChargingMultipleTimesLessThan4Hours" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CongestionChargeSystemTest_testChargingWholeDay - 2018.12.04 at 18h 10m 34s.xml">
-      <configuration name="CongestionChargeSystemTest.testChargingWholeDay" configurationId="JUnit" />
+    <history-entry file="CongestionChargeSystemTest_testChargingMultipleTimesLessThan4Hours - 2018.12.04 at 19h 03m 06s.xml">
+      <configuration name="CongestionChargeSystemTest.testChargingMultipleTimesLessThan4Hours" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CongestionChargeSystemTest_checkSecondsBetween - 2018.12.04 at 18h 15m 27s.xml">
-      <configuration name="CongestionChargeSystemTest.checkSecondsBetween" configurationId="JUnit" />
+    <history-entry file="CongestionChargeSystemTest_testChargingMultipleTimesLessThan4Hours - 2018.12.04 at 19h 03m 34s.xml">
+      <configuration name="CongestionChargeSystemTest.testChargingMultipleTimesLessThan4Hours" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CongestionChargeSystemTest_checkSecondsBetween - 2018.12.04 at 18h 15m 52s.xml">
-      <configuration name="CongestionChargeSystemTest.checkSecondsBetween" configurationId="JUnit" />
+    <history-entry file="CongestionChargeSystemTest_testChargingMultipleTimesLessThan4Hours - 2018.12.04 at 19h 04m 50s.xml">
+      <configuration name="CongestionChargeSystemTest.testChargingMultipleTimesLessThan4Hours" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CongestionChargeSystemTest_checkSecondsBetween - 2018.12.04 at 18h 16m 04s.xml">
-      <configuration name="CongestionChargeSystemTest.checkSecondsBetween" configurationId="JUnit" />
+    <history-entry file="CongestionChargeSystemTest_testChargingMultipleTimesLessThan4Hours - 2018.12.04 at 19h 08m 57s.xml">
+      <configuration name="CongestionChargeSystemTest.testChargingMultipleTimesLessThan4Hours" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CongestionChargeSystemTest_testingChargingAfter2pm - 2018.12.04 at 18h 16m 14s.xml">
-      <configuration name="CongestionChargeSystemTest.testingChargingAfter2pm" configurationId="JUnit" />
+    <history-entry file="CongestionChargeSystemTest - 2018.12.04 at 19h 09m 23s.xml">
+      <configuration name="CongestionChargeSystemTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CongestionChargeSystemTest_testingChargingBefore2pm - 2018.12.04 at 18h 16m 18s.xml">
-      <configuration name="CongestionChargeSystemTest.testingChargingBefore2pm" configurationId="JUnit" />
+    <history-entry file="CongestionChargeSystemTest_testChargingMultipleTimesMoreThan4Hours - 2018.12.04 at 19h 10m 13s.xml">
+      <configuration name="CongestionChargeSystemTest.testChargingMultipleTimesMoreThan4Hours" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CongestionChargeSystemTest_testChargingWholeDay - 2018.12.04 at 18h 16m 22s.xml">
-      <configuration name="CongestionChargeSystemTest.testChargingWholeDay" configurationId="JUnit" />
+    <history-entry file="CongestionChargeSystemTest_testChargingMultipleTimesLessThan4Hours - 2018.12.04 at 19h 10m 18s.xml">
+      <configuration name="CongestionChargeSystemTest.testChargingMultipleTimesLessThan4Hours" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55183000" />
+    <option name="totallyTimeSpent" value="58218000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -605,22 +594,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
+    <entry file="file://$PROJECT_DIR$/test/com/trafficmon/CongestionChargeSystemTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="102" column="13" lean-forward="true" selection-start-line="102" selection-start-column="13" selection-end-line="102" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5757#5758#0" expanded="true" />
-            <element signature="e#5805#5806#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="499">
+          <caret line="186" column="28" selection-start-line="186" selection-start-column="26" selection-end-line="186" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/com/trafficmon/CongestionChargeSystemTest.java">
+    <entry file="file://$PROJECT_DIR$/src/com/trafficmon/CongestionChargeSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="159" lean-forward="true" selection-start-line="159" selection-end-line="159" />
+        <state relative-caret-position="261">
+          <caret line="93" column="31" selection-start-line="93" selection-start-column="31" selection-end-line="93" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5980#5981#0" expanded="true" />
+            <element signature="e#6028#6029#0" expanded="true" />
+            <element signature="e#6053#6054#0" expanded="true" />
+            <element signature="e#6091#6092#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
