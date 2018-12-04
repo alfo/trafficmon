@@ -5,7 +5,6 @@ import org.joda.time.DateTime;
 public abstract class ZoneBoundaryCrossing {
 
     private final Vehicle vehicle;
-    private final long time;
     private final int hour;
     private final int min;
     private final int sec;
@@ -13,15 +12,15 @@ public abstract class ZoneBoundaryCrossing {
 
     public ZoneBoundaryCrossing(Vehicle vehicle) {
         this.vehicle = vehicle;
-        this.time = System.currentTimeMillis();
+
 //        this.time = LocalTime.fromMillisOfDay();
 
         //https://www.joda.org/joda-time/userguide.html
         DateTime dt = new DateTime();
 
-        this.hour = dt.getHourOfDay();
-        this.min = dt.getMinuteOfHour();
-        this.sec = dt.getSecondOfMinute();
+        this.hour = Clock.getCurrentHour();
+        this.min = Clock.getCurrentMinute();
+        this.sec = Clock.getCurrentSecond();
 
 
     }
