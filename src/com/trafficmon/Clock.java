@@ -16,6 +16,13 @@ public class Clock {
         fakeSecond = second;
     }
 
+    // Used to remove a fakeTime in between tests
+    public static void clear() {
+        fakeHour = null;
+        fakeMinute = null;
+        fakeSecond = null;
+    }
+
     public static Integer getCurrentHour() {
         if (fakeHour != null) {
             return fakeHour;

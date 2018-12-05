@@ -85,10 +85,13 @@ public class CongestionChargeSystem {
         long totalDuration = 0;
 
 
+        // Loop over all the crossings for this vehicle, starting at the second one
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
 
+            // Calculate the difference between the last crossing and this one
             long duration = secondsBetween(lastEvent.timestamp(), crossing.timestamp());
 
+            // If we are entering after less than four hours, don't charge on the next exit event
             if (crossing instanceof EntryEvent && counter > 1) {
                 if (duration < 14400) {
                     chargeThisTime = false;
@@ -98,22 +101,21 @@ public class CongestionChargeSystem {
                 }
             }
 
-            if(crossing instanceof ExitEvent)
-            {
+            // Only process charging on each exit
+            if (crossing instanceof ExitEvent) {
+
+                // Keep track of the total amount of time inside the charge zone
                 totalDuration += duration;
-                System.out.println("Total duration so far is " + totalDuration);
 
-                if(totalDuration > 14400)
-                {
-                    System.out.println("More than four hours total!!" + totalDuration);
-
+                // If inside for more than 4 hours in total, always charge the max of £12
+                if (totalDuration > 14400) {
                     charge = new BigDecimal(12.00);
                     break;
                 }
 
+                // Only charge if there's only
                 if (crossings.size() <= 2 || chargeThisTime) {
 
-                    System.out.print(chargeThisTime);
                     if (lastEvent instanceof EntryEvent && duration > 14400) {
                         charge = charge.add(new BigDecimal(12.00));
                     }
