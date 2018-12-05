@@ -123,7 +123,7 @@ public class CongestionChargeSystemTest {
 
     public void testingChargingAfter2pm()
     {
-        Clock.setFakeTime(15, 0, 0);
+        Clock.setFakeTime(15, 25, 27);
 
         Vehicle vehicle = new Vehicle("ABC");
         list.add(new EntryEvent(vehicle));
@@ -151,7 +151,7 @@ public class CongestionChargeSystemTest {
     public void testChargingWholeDay()
     {
 
-        Clock.setFakeTime(10, 00, 00);
+        Clock.setFakeTime(10, 30, 00);
         Vehicle vehicle = new Vehicle("ABC");
         list.add(new EntryEvent(vehicle));
         Clock.setFakeTime(16, 00, 00);
@@ -205,6 +205,66 @@ public class CongestionChargeSystemTest {
         Clock.setFakeTime(17,00,00);
         list.add(new ExitEvent(vehicle));
         assertThat(congestionChargeSystem.calculateChargeForTimeInZone(list), is(new BigDecimal(12.00)));
+    }
+
+    @Test
+
+    public void testThreeTimesEntryAndExitWithLessThan4Hours()
+    {
+        Clock.setFakeTime(10,00,00);
+        Vehicle vehicle = new Vehicle("ABC");
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(11, 00, 00);
+        list.add(new ExitEvent(vehicle));
+        Clock.setFakeTime(13,00,00);
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(14,00,00);
+        list.add(new ExitEvent(vehicle));
+        Clock.setFakeTime(16, 00, 00);
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(17,00,00);
+        list.add(new ExitEvent(vehicle));
+        assertThat(congestionChargeSystem.calculateChargeForTimeInZone(list), is(new BigDecimal(6.00)));
+    }
+
+    @Test
+
+    public void testThreeTimesEntryAndExitWithMoreThan4Hours()
+    {
+        Clock.setFakeTime(8,00,00);
+        Vehicle vehicle = new Vehicle("ABC");
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(9, 00, 00);
+        list.add(new ExitEvent(vehicle));
+        Clock.setFakeTime(14,00,00);
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(15,00,00);
+        list.add(new ExitEvent(vehicle));
+        Clock.setFakeTime(16, 00, 00);
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(17,00,00);
+        list.add(new ExitEvent(vehicle));
+        assertThat(congestionChargeSystem.calculateChargeForTimeInZone(list), is(new BigDecimal(10.00)));
+    }
+
+    @Test
+
+    public void testThreeTimesEntryAndExitWithMoreThan4HoursBothTimes()
+    {
+        Clock.setFakeTime(8,00,00);
+        Vehicle vehicle = new Vehicle("ABC");
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(9, 00, 00);
+        list.add(new ExitEvent(vehicle));
+        Clock.setFakeTime(14,00,00);
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(15,00,00);
+        list.add(new ExitEvent(vehicle));
+        Clock.setFakeTime(20, 00, 00);
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(21,00,00);
+        list.add(new ExitEvent(vehicle));
+        assertThat(congestionChargeSystem.calculateChargeForTimeInZone(list), is(new BigDecimal(14.00)));
     }
 
 
