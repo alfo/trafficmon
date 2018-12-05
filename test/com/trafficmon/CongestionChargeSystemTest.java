@@ -191,6 +191,22 @@ public class CongestionChargeSystemTest {
         assertThat(congestionChargeSystem.calculateChargeForTimeInZone(list), is(new BigDecimal(6.00)));
     }
 
+    @Test
+
+    public void testReenteringWithin4HoursButTotalDurationIsGreaterThan4Hours()
+    {
+        Clock.setFakeTime(10,00,00);
+        Vehicle vehicle = new Vehicle("ABC");
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(12, 00, 00);
+        list.add(new ExitEvent(vehicle));
+        Clock.setFakeTime(14,00,00);
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(17,00,00);
+        list.add(new ExitEvent(vehicle));
+        assertThat(congestionChargeSystem.calculateChargeForTimeInZone(list), is(new BigDecimal(12.00)));
+    }
+
 
 
 
