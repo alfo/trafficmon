@@ -73,61 +73,56 @@ public class CongestionChargeSystem {
     }
 
     // change the most
-    private BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
+    protected BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
 
         BigDecimal charge = new BigDecimal(0);
+
+        int counter = 1;
+        boolean chargeThisTime = true;
 
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
 
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
 
-//            if (crossing instanceof ExitEvent) {
-//                charge = charge.add(
-//                        new BigDecimal(minutesBetween(lastEvent.timestamp(), crossing.timestamp()))
-//                                .multiply(CHARGE_RATE_POUNDS_PER_MINUTE));
-//            }
-//
-//            if(crossing instanceof EntryEvent && crossing.timestamp() == System.currentTimeMillis())
-//            {
-//                charge = charge.add(new BigDecimal(0.10));
-//            }
+            long duration = secondsBetween(lastEvent.timestamp(), crossing.timestamp());
 
-            int duration = minutesBetween(lastEvent.timestamp(), crossing.timestamp());
-            if(crossing instanceof ExitEvent)
-            {
-                if(lastEvent instanceof EntryEvent && lastEvent.timestampHour() < 14 && duration <= 4)
-                {
-                    charge = charge.add(new BigDecimal(6.00));
-                }
-
-                if(lastEvent instanceof EntryEvent && lastEvent.timestampHour() > 14 && duration <= 4)
-                {
-                    charge = charge.add(new BigDecimal(4.00));
-                }
-
-                if(lastEvent instanceof EntryEvent && duration > 4)
-                {
-                    charge = charge.add(new BigDecimal(12.00));
+            if (crossing instanceof EntryEvent && counter > 1) {
+                if (duration < 14400) {
+                    chargeThisTime = false;
+                } else {
+                    chargeThisTime = true;
                 }
             }
 
+            if(crossing instanceof ExitEvent)
+            {
 
 
+                if (crossings.size() <= 2 || chargeThisTime) {
+
+                    if (lastEvent instanceof EntryEvent && duration > 14400) {
+                        charge = charge.add(new BigDecimal(12.00));
+                    }
+
+                    if (lastEvent instanceof EntryEvent && lastEvent.timestampHour() < 14 && duration <= 14400) {
+                        charge = charge.add(new BigDecimal(6.00));
+                    }
+
+                    if (lastEvent instanceof EntryEvent && lastEvent.timestampHour() >= 14 && duration <= 14400) {
+                        charge = charge.add(new BigDecimal(4.00));
+                    }
+                }
+
+
+            }
 
             lastEvent = crossing;
+            counter++;
 
         }
 
         return charge;
     }
-
-//    protected void leaveAndComeBackWithin4Hours()
-//    {
-//        for (Vehicle vehicle : crossingsByVehicle.keySet())
-//        {
-//            //entryEvent.timestampHours() - exitEvent.timestampHours() < 4
-//        }
-//    }
 
     private boolean previouslyRegistered(Vehicle vehicle) {
         for (ZoneBoundaryCrossing crossing : eventLog) {
@@ -160,8 +155,8 @@ public class CongestionChargeSystem {
     }
 
     //just does subtraction for minutes
-    protected int minutesBetween(long startTimeMs, long endTimeMs) {
-        return (int) Math.ceil((endTimeMs - startTimeMs) / (1000.0 * 60.0));  //ceil rounds up
+    protected long secondsBetween(long startSeconds, long endSeconds) {
+        return endSeconds - startSeconds;
     }
 
     public int size() {

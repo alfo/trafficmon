@@ -1,5 +1,6 @@
 package com.trafficmon;
 
+import jdk.jfr.Timespan;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
@@ -42,12 +43,12 @@ public class CongestionChargeSystemTest {
 
     @Test
 
-    public void checkMinutesBetween()
+    public void checkSecondsBetween()
 
     {
-        long startTimeMs = 1000000;
-        long endTimeMs = 3000000;
-        assertThat(congestionChargeSystem.minutesBetween(startTimeMs, endTimeMs), is(34));
+        long startS = 1000000;
+        long endS = 3000000;
+        assertThat(congestionChargeSystem.secondsBetween(startS, endS), is((long)2000000));
         //having done maths manually, value should be 34
     }
 
@@ -117,6 +118,80 @@ public class CongestionChargeSystemTest {
         list.add(new ExitEvent(vehicle));
         assertFalse(congestionChargeSystem.checkOrderingOf(list));
     }
+
+    @Test
+
+    public void testingChargingAfter2pm()
+    {
+        Clock.setFakeTime(15, 0, 0);
+
+        Vehicle vehicle = new Vehicle("ABC");
+        list.add(new EntryEvent(vehicle));
+
+        Clock.setFakeTime(16, 0, 0);
+        list.add(new ExitEvent(vehicle));
+        assertThat(congestionChargeSystem.calculateChargeForTimeInZone(list), is(new BigDecimal(4.00)));
+    }
+    @Test
+
+    public void testingChargingBefore2pm()
+    {
+
+        Clock.setFakeTime(10, 30, 00);
+        Vehicle vehicle = new Vehicle("DEF");
+        list.add(new EntryEvent(vehicle));
+
+        Clock.setFakeTime(12, 00, 00);
+        list.add(new ExitEvent(vehicle));
+        assertThat(congestionChargeSystem.calculateChargeForTimeInZone(list), is(new BigDecimal(6.00)));
+    }
+
+    @Test
+
+    public void testChargingWholeDay()
+    {
+
+        Clock.setFakeTime(10, 00, 00);
+        Vehicle vehicle = new Vehicle("ABC");
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(16, 00, 00);
+        list.add(new ExitEvent(vehicle));
+        assertThat(congestionChargeSystem.calculateChargeForTimeInZone(list), is(new BigDecimal(12.00)));
+    }
+
+    @Test
+
+    public void testChargingMultipleTimesMoreThan4Hours()
+    {
+        Clock.setFakeTime(10,00,00);
+        Vehicle vehicle = new Vehicle("ABC");
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(12, 00, 00);
+        list.add(new ExitEvent(vehicle));
+        Clock.setFakeTime(17,00,00);
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(19,00,00);
+        list.add(new ExitEvent(vehicle));
+        assertThat(congestionChargeSystem.calculateChargeForTimeInZone(list), is(new BigDecimal(10.00)));
+    }
+
+    @Test
+
+    public void testChargingMultipleTimesLessThan4Hours()
+    {
+        Clock.setFakeTime(10,00,00);
+        Vehicle vehicle = new Vehicle("ABC");
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(12, 00, 00);
+        list.add(new ExitEvent(vehicle));
+        Clock.setFakeTime(14,00,00);
+        list.add(new EntryEvent(vehicle));
+        Clock.setFakeTime(15,00,00);
+        list.add(new ExitEvent(vehicle));
+        assertThat(congestionChargeSystem.calculateChargeForTimeInZone(list), is(new BigDecimal(6.00)));
+    }
+
+
 
 
 }
