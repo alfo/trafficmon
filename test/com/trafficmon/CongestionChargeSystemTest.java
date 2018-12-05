@@ -28,8 +28,8 @@ public class CongestionChargeSystemTest {
 
     public void checkVehicleAddedToEventLog()
     {
-        congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("ABC"));
-        congestionChargeSystem.vehicleLeavingZone(Vehicle.withRegistration("ABC"));
+        congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("A123 XYZ"));
+        congestionChargeSystem.vehicleLeavingZone(Vehicle.withRegistration("A123 XYZ"));
         assertThat(congestionChargeSystem.size(), is(2));
     }
 
@@ -37,7 +37,7 @@ public class CongestionChargeSystemTest {
 
     public void checkVehicleNotAddedToEventLog()
     {
-        congestionChargeSystem.vehicleLeavingZone(Vehicle.withRegistration("ABC"));
+        congestionChargeSystem.vehicleLeavingZone(Vehicle.withRegistration("A123 XYZ"));
         assertThat(congestionChargeSystem.size(), is(0));  //O as vehicle b should not have been added to congestionChargeSystem as not previously registered
     }
 
@@ -56,7 +56,7 @@ public class CongestionChargeSystemTest {
 
     public void checkNoCrossingNoMapping()
     {
-        Vehicle a = new Vehicle("ABC");
+        Vehicle a = new Vehicle("A123 XYZ");
         congestionChargeSystem.calculateCharges();
         assertThat(map1.size(), is(0));
     }
@@ -66,8 +66,8 @@ public class CongestionChargeSystemTest {
 
     public void vehicleInMapAddCrossing()
     {
-        congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("ABC"));
-        congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("DEF"));
+        congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("A123 XYZ"));
+        congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("J091 4PY"));
         congestionChargeSystem.calculateCharges();
         assertThat(map1.size(), is(2));
     }
@@ -78,10 +78,10 @@ public class CongestionChargeSystemTest {
 
     public void crossingAddedTwiceButVehicleOnlyAddedOnce()
     {
-        congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("ABC"));
-        congestionChargeSystem.vehicleLeavingZone(Vehicle.withRegistration("ABC"));
+        congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("A123 XYZ"));
+        congestionChargeSystem.vehicleLeavingZone(Vehicle.withRegistration("A123 XYZ"));
         congestionChargeSystem.calculateCharges();
-        List<ZoneBoundaryCrossing> list1 = congestionChargeSystem.getCrossingsByVehicleValue("ABC");
+        List<ZoneBoundaryCrossing> list1 = congestionChargeSystem.getCrossingsByVehicleValue("A123 XYZ");
         assertThat(list1.size(), is(2));
         assertThat(map1.size(), is(1));
     }
@@ -91,7 +91,7 @@ public class CongestionChargeSystemTest {
     public void checkThatVehicleDoesNotEnterTwiceBeforeExiting()
     {
 
-        Vehicle vehicle = new Vehicle("ABC");
+        Vehicle vehicle = new Vehicle("A123 XYZ");
         list.add(new EntryEvent(vehicle));
         list.add(new EntryEvent(vehicle));
         assertFalse(congestionChargeSystem.checkOrderingOf(list));
@@ -101,7 +101,7 @@ public class CongestionChargeSystemTest {
 
     public void checkThatVehicleCanEnterExitEnter()
     {
-        Vehicle vehicle = new Vehicle("ABC");
+        Vehicle vehicle = new Vehicle("A123 XYZ");
         list.add(new EntryEvent(vehicle));
         list.add(new ExitEvent(vehicle));
         list.add(new EntryEvent(vehicle));
@@ -113,7 +113,7 @@ public class CongestionChargeSystemTest {
     public void checkThatVehicleDoesNotExitTwiceBeforeEntering()
     {
 
-        Vehicle vehicle = new Vehicle("DEF");
+        Vehicle vehicle = new Vehicle("J091 4PY");
         list.add(new ExitEvent(vehicle));
         list.add(new ExitEvent(vehicle));
         assertFalse(congestionChargeSystem.checkOrderingOf(list));
@@ -125,7 +125,7 @@ public class CongestionChargeSystemTest {
     {
         Clock.setFakeTime(15, 25, 27);
 
-        Vehicle vehicle = new Vehicle("ABC");
+        Vehicle vehicle = new Vehicle("A123 XYZ");
         list.add(new EntryEvent(vehicle));
 
         Clock.setFakeTime(16, 0, 0);
@@ -138,7 +138,7 @@ public class CongestionChargeSystemTest {
     {
 
         Clock.setFakeTime(10, 30, 00);
-        Vehicle vehicle = new Vehicle("DEF");
+        Vehicle vehicle = new Vehicle("J091 4PY");
         list.add(new EntryEvent(vehicle));
 
         Clock.setFakeTime(12, 00, 00);
@@ -152,7 +152,7 @@ public class CongestionChargeSystemTest {
     {
 
         Clock.setFakeTime(10, 30, 00);
-        Vehicle vehicle = new Vehicle("ABC");
+        Vehicle vehicle = new Vehicle("A123 XYZ");
         list.add(new EntryEvent(vehicle));
         Clock.setFakeTime(16, 00, 00);
         list.add(new ExitEvent(vehicle));
@@ -164,7 +164,7 @@ public class CongestionChargeSystemTest {
     public void testChargingMultipleTimesMoreThan4Hours()
     {
         Clock.setFakeTime(10,00,00);
-        Vehicle vehicle = new Vehicle("ABC");
+        Vehicle vehicle = new Vehicle("A123 XYZ");
         list.add(new EntryEvent(vehicle));
         Clock.setFakeTime(12, 00, 00);
         list.add(new ExitEvent(vehicle));
@@ -180,7 +180,7 @@ public class CongestionChargeSystemTest {
     public void testChargingMultipleTimesLessThan4Hours()
     {
         Clock.setFakeTime(10,00,00);
-        Vehicle vehicle = new Vehicle("ABC");
+        Vehicle vehicle = new Vehicle("A123 XYZ");
         list.add(new EntryEvent(vehicle));
         Clock.setFakeTime(12, 00, 00);
         list.add(new ExitEvent(vehicle));
@@ -196,7 +196,7 @@ public class CongestionChargeSystemTest {
     public void testReenteringWithin4HoursButTotalDurationIsGreaterThan4Hours()
     {
         Clock.setFakeTime(10,00,00);
-        Vehicle vehicle = new Vehicle("ABC");
+        Vehicle vehicle = new Vehicle("A123 XYZ");
         list.add(new EntryEvent(vehicle));
         Clock.setFakeTime(12, 00, 00);
         list.add(new ExitEvent(vehicle));
@@ -212,7 +212,7 @@ public class CongestionChargeSystemTest {
     public void testThreeTimesEntryAndExitWithLessThan4Hours()
     {
         Clock.setFakeTime(10,00,00);
-        Vehicle vehicle = new Vehicle("ABC");
+        Vehicle vehicle = new Vehicle("A123 XYZ");
         list.add(new EntryEvent(vehicle));
         Clock.setFakeTime(11, 00, 00);
         list.add(new ExitEvent(vehicle));
@@ -232,7 +232,7 @@ public class CongestionChargeSystemTest {
     public void testThreeTimesEntryAndExitWithMoreThan4Hours()
     {
         Clock.setFakeTime(8,00,00);
-        Vehicle vehicle = new Vehicle("ABC");
+        Vehicle vehicle = new Vehicle("A123 XYZ");
         list.add(new EntryEvent(vehicle));
         Clock.setFakeTime(9, 00, 00);
         list.add(new ExitEvent(vehicle));
@@ -252,7 +252,7 @@ public class CongestionChargeSystemTest {
     public void testThreeTimesEntryAndExitWithMoreThan4HoursBothTimes()
     {
         Clock.setFakeTime(8,00,00);
-        Vehicle vehicle = new Vehicle("ABC");
+        Vehicle vehicle = new Vehicle("A123 XYZ");
         list.add(new EntryEvent(vehicle));
         Clock.setFakeTime(9, 00, 00);
         list.add(new ExitEvent(vehicle));
