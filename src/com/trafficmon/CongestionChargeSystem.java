@@ -82,27 +82,36 @@ public class CongestionChargeSystem {
 
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
 
+        long totalDuration = 0;
+
+
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
 
             long duration = secondsBetween(lastEvent.timestamp(), crossing.timestamp());
 
-            System.out.println(crossings.get(counter));
+            if(totalDuration > 14400)
+            {
+                System.out.println(totalDuration);
+                charge = charge.add(new BigDecimal(12.00));
+                break;
+            }
+
+            if (crossing instanceof EntryEvent && counter > 1) {
+                if (duration < 14400) {
+                    chargeThisTime = false;
+                }
+                else {
+                    chargeThisTime = true;
+                }
+            }
 
             if(crossing instanceof ExitEvent)
             {
-
-                if (counter > 1) {
-
-                    long thisEntry = lastEvent.timestamp();
-                    long exitFromEarlier = crossings.get(counter - 2).timestamp();
-
-                    if (secondsBetween(thisEntry, exitFromEarlier) < 14400) {
-                        chargeThisTime = false;
-                    }
-                }
-
+                totalDuration += duration;
+                System.out.println(totalDuration);
                 if (crossings.size() <= 2 || chargeThisTime) {
 
+                    System.out.print(chargeThisTime);
                     if (lastEvent instanceof EntryEvent && duration > 14400) {
                         charge = charge.add(new BigDecimal(12.00));
                     }
@@ -115,7 +124,6 @@ public class CongestionChargeSystem {
                         charge = charge.add(new BigDecimal(4.00));
                     }
                 }
-
 
             }
 
