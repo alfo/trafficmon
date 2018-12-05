@@ -89,13 +89,6 @@ public class CongestionChargeSystem {
 
             long duration = secondsBetween(lastEvent.timestamp(), crossing.timestamp());
 
-            if(totalDuration > 14400)
-            {
-                System.out.println(totalDuration);
-                charge = charge.add(new BigDecimal(12.00));
-                break;
-            }
-
             if (crossing instanceof EntryEvent && counter > 1) {
                 if (duration < 14400) {
                     chargeThisTime = false;
@@ -108,7 +101,16 @@ public class CongestionChargeSystem {
             if(crossing instanceof ExitEvent)
             {
                 totalDuration += duration;
-                System.out.println(totalDuration);
+                System.out.println("Total duration so far is " + totalDuration);
+
+                if(totalDuration > 14400)
+                {
+                    System.out.println("More than four hours total!!" + totalDuration);
+
+                    charge = new BigDecimal(12.00);
+                    break;
+                }
+
                 if (crossings.size() <= 2 || chargeThisTime) {
 
                     System.out.print(chargeThisTime);
