@@ -86,20 +86,17 @@ public class CongestionChargeSystem {
 
             long duration = secondsBetween(lastEvent.timestamp(), crossing.timestamp());
 
-            System.out.println(crossings.get(counter));
+            if (crossing instanceof EntryEvent && counter > 1) {
+                if (duration < 14400) {
+                    chargeThisTime = false;
+                } else {
+                    chargeThisTime = true;
+                }
+            }
 
             if(crossing instanceof ExitEvent)
             {
 
-                if (counter > 1) {
-
-                    long thisEntry = lastEvent.timestamp();
-                    long exitFromEarlier = crossings.get(counter - 2).timestamp();
-
-                    if (secondsBetween(thisEntry, exitFromEarlier) < 14400) {
-                        chargeThisTime = false;
-                    }
-                }
 
                 if (crossings.size() <= 2 || chargeThisTime) {
 
