@@ -6,12 +6,13 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public class TestClock {
+public class ClockTest {
 
     @Test
 
     public void testHourRealTime() {
 
+        Clock.clear();
         Integer hour = Clock.getCurrentHour();
         assertThat(hour, is(LocalTime.now().getHourOfDay()));
 
@@ -21,6 +22,7 @@ public class TestClock {
 
     public void testMinuteRealTime() {
 
+        Clock.clear();
         Integer minute = Clock.getCurrentMinute();
         assertThat(minute, is(LocalTime.now().getMinuteOfHour()));
 
@@ -30,6 +32,7 @@ public class TestClock {
 
     public void testSecondRealTime() {
 
+        Clock.clear();
         Integer second = Clock.getCurrentSecond();
         assertThat(second, is(LocalTime.now().getSecondOfMinute()));
 

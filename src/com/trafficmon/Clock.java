@@ -1,8 +1,6 @@
 package com.trafficmon;
 
 import org.joda.time.LocalTime;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 
 public class Clock {
 
@@ -10,13 +8,20 @@ public class Clock {
     private static Integer fakeMinute;
     private static Integer fakeSecond;
 
-    public static void setFakeTime(Integer hour, Integer minute, Integer second) {
+    protected static void setFakeTime(Integer hour, Integer minute, Integer second) {
         fakeHour = hour;
         fakeMinute = minute;
         fakeSecond = second;
     }
 
-    public static Integer getCurrentHour() {
+    // Used to remove a fakeTime in between tests
+    protected static void clear() {
+        fakeHour = null;
+        fakeMinute = null;
+        fakeSecond = null;
+    }
+
+    protected static Integer getCurrentHour() {
         if (fakeHour != null) {
             return fakeHour;
         } else {
@@ -24,7 +29,7 @@ public class Clock {
         }
     }
 
-    public static Integer getCurrentMinute() {
+    protected static Integer getCurrentMinute() {
         if (fakeMinute != null) {
             return fakeMinute;
         } else {
@@ -32,7 +37,7 @@ public class Clock {
         }
     }
 
-    public static Integer getCurrentSecond() {
+    protected static Integer getCurrentSecond() {
         if (fakeSecond != null) {
             return fakeSecond;
         } else {

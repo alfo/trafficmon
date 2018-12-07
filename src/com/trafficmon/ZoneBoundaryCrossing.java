@@ -1,7 +1,5 @@
 package com.trafficmon;
 
-import org.joda.time.DateTime;
-
 public abstract class ZoneBoundaryCrossing {
 
     private final Vehicle vehicle;
@@ -12,11 +10,6 @@ public abstract class ZoneBoundaryCrossing {
 
     public ZoneBoundaryCrossing(Vehicle vehicle) {
         this.vehicle = vehicle;
-
-//        this.time = LocalTime.fromMillisOfDay();
-
-        //https://www.joda.org/joda-time/userguide.html
-        DateTime dt = new DateTime();
 
         this.hour = Clock.getCurrentHour();
         this.min = Clock.getCurrentMinute();
@@ -39,13 +32,5 @@ public abstract class ZoneBoundaryCrossing {
         return hour;
     }
 
-    public int timestampMin()
-    {
-        return min;
-    }
 
-    public int timestampSec()
-    {
-        return sec;
-    }
 }

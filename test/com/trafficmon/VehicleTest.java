@@ -1,10 +1,7 @@
 package com.trafficmon;
 
 import static junit.framework.TestCase.assertTrue;
-//import static org.hamcrest.*;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
-//import static junit.*;
 import org.junit.Test;
 
 
@@ -15,10 +12,8 @@ public class VehicleTest
 
     public void vehiclesAreEqual() {
 
-        //Vehicle a = new Vehicle.withRegistration("ABC");
-        Vehicle a = new Vehicle("ABC");
-        //Vehicle b = new Vehicle.withRegistration("ABC");
-        Vehicle b = new Vehicle("ABC");
+        Vehicle a = new Vehicle("A123 XYZ");
+        Vehicle b = new Vehicle("A123 XYZ");
         assertTrue(a.equals(b));
         assertTrue(b.equals(a));
 
@@ -27,8 +22,8 @@ public class VehicleTest
     @Test
     public void vehiclesAreNotEqual()
     {
-        Vehicle c = new Vehicle("DEF");
-        Vehicle d = new Vehicle("GHI");
+        Vehicle c = new Vehicle("A123 XYZ");
+        Vehicle d = new Vehicle("J091 4PY");
         assertFalse(c.equals(d));
         assertFalse(d.equals(c));
     }

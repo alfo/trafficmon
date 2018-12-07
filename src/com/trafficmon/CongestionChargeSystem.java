@@ -1,23 +1,25 @@
 package com.trafficmon;
 
-import java.math.BigDecimal; //used to deal with doubles accurately
-import java.time.LocalTime;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class CongestionChargeSystem {
 
-    public static final BigDecimal CHARGE_RATE_POUNDS_PER_MINUTE = new BigDecimal(0.05);  //sets value of 5p
-
-    private final List<ZoneBoundaryCrossing> eventLog = new ArrayList<ZoneBoundaryCrossing>(); //list of entry and exit events
+    //list of entry and exit events
+    private final List<ZoneBoundaryCrossing> eventLog = new ArrayList<ZoneBoundaryCrossing>();
 
     private Map<Vehicle, List<ZoneBoundaryCrossing>> crossingsByVehicle = new HashMap<Vehicle, List<ZoneBoundaryCrossing>>();
+
+    protected int size() {
+        return eventLog.size();
+    }
 
     protected Map<Vehicle, List<ZoneBoundaryCrossing>> getCrossingsByVehicle() {
         return crossingsByVehicle;
     }
 
 
-    protected List<ZoneBoundaryCrossing> getCrossingsByVehicleValue(String registration) {
+    protected List<ZoneBoundaryCrossing> getCrossingsByVehicleRegistrationNumber(String registration) {
         Vehicle key = new Vehicle(registration);
         return crossingsByVehicle.get(key);
     }
@@ -34,18 +36,20 @@ public class CongestionChargeSystem {
         eventLog.add(new ExitEvent(vehicle));
     }
 
-    //parent class
     public void calculateCharges() {
-
-//        Map<Vehicle, List<ZoneBoundaryCrossing>> crossingsByVehicle = new HashMap<Vehicle, List<ZoneBoundaryCrossing>>();
 
         for (ZoneBoundaryCrossing crossing : eventLog) {
             if (!crossingsByVehicle.containsKey(crossing.getVehicle())) {
                 crossingsByVehicle.put(crossing.getVehicle(), new ArrayList<ZoneBoundaryCrossing>());
-            } //if no existing crossings for vehicle, add a new crossing
+            }
             crossingsByVehicle.get(crossing.getVehicle()).add(crossing);
         }
 
+        checkCharges();
+
+    }
+
+    private void checkCharges() {
         for (Map.Entry<Vehicle, List<ZoneBoundaryCrossing>> vehicleCrossings : crossingsByVehicle.entrySet()) {
             Vehicle vehicle = vehicleCrossings.getKey();
             List<ZoneBoundaryCrossing> crossings = vehicleCrossings.getValue();
@@ -63,16 +67,11 @@ public class CongestionChargeSystem {
                 } catch (AccountNotRegisteredException e) {
                     OperationsTeam.getInstance().issuePenaltyNotice(vehicle, charge);
                 }
-            } //do we need to check this for loop?
+            }
         }
-        //need to check actions done by this function
-        //create a hashmap matching a vehicle to its zone boundary crossing - this is the time it crossed?
-        //for a crossing time in event log, if the hashmap does not contain a certain vehicle, add the vehicle and its zone boundary crossing to the hashmap
-        //else, if the vehicle already exists in the hashmap, add the crossing time to the vehicle
-
     }
 
-    // change the most
+
     protected BigDecimal calculateChargeForTimeInZone(List<ZoneBoundaryCrossing> crossings) {
 
         BigDecimal charge = new BigDecimal(0);
@@ -85,17 +84,13 @@ public class CongestionChargeSystem {
         long totalDuration = 0;
 
 
+        // Loop over all the crossings for this vehicle, starting at the second one
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
 
+            // Calculate the difference between the last crossing and this one
             long duration = secondsBetween(lastEvent.timestamp(), crossing.timestamp());
 
-            if(totalDuration > 14400)
-            {
-                System.out.println(totalDuration);
-                charge = charge.add(new BigDecimal(12.00));
-                break;
-            }
-
+            // If we are entering after less than four hours, don't charge on the next exit event
             if (crossing instanceof EntryEvent && counter > 1) {
                 if (duration < 14400) {
                     chargeThisTime = false;
@@ -105,13 +100,21 @@ public class CongestionChargeSystem {
                 }
             }
 
-            if(crossing instanceof ExitEvent)
-            {
+            // Only process charging on each exit
+            if (crossing instanceof ExitEvent) {
+
+                // Keep track of the total amount of time inside the charge zone
                 totalDuration += duration;
-                System.out.println(totalDuration);
+
+                // If inside for more than 4 hours in total, always charge the £12
+                if (totalDuration > 14400) {
+                    charge = new BigDecimal(12.00);
+                    break;
+                }
+
+
                 if (crossings.size() <= 2 || chargeThisTime) {
 
-                    System.out.print(chargeThisTime);
                     if (lastEvent instanceof EntryEvent && duration > 14400) {
                         charge = charge.add(new BigDecimal(12.00));
                     }
@@ -144,18 +147,17 @@ public class CongestionChargeSystem {
         return false;
     }
 
-    //makes sure exit is after entry
     protected boolean checkOrderingOf(List<ZoneBoundaryCrossing> crossings) {
 
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
-        //0th index is the first vehicle that entered, for example in the day
+
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
             if (crossing.timestamp() < lastEvent.timestamp()) {
                 return false;
-            } //this means that crossing.timestamp() should be greater than lastEvent.timestamp()
+            }
             if (crossing instanceof EntryEvent && lastEvent instanceof EntryEvent) {
                 return false;
-            } //can't have two entries for one vehicle
+            }
             if (crossing instanceof ExitEvent && lastEvent instanceof ExitEvent) {
                 return false;
             }
@@ -165,16 +167,9 @@ public class CongestionChargeSystem {
         return true;
     }
 
-    //just does subtraction for minutes
+
     protected long secondsBetween(long startSeconds, long endSeconds) {
         return endSeconds - startSeconds;
     }
-
-    public int size() {
-        return eventLog.size();
-    }
-
-
-
 
 }
