@@ -30,16 +30,6 @@ public class ClockTest {
 
     @Test
 
-    public void testSecondRealTime() {
-
-        Clock.clear();
-        Integer second = Clock.getCurrentSecond();
-        assertThat(second, is(LocalTime.now().getSecondOfMinute()));
-
-    }
-
-    @Test
-
     public void testFakeClock() {
 
         Integer fakeHour = 14;
