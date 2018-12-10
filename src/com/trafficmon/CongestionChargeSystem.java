@@ -76,13 +76,15 @@ public class CongestionChargeSystem {
 
         BigDecimal charge = new BigDecimal(0);
 
+        // The maximum time in between visits where the second entry isn't charged in seconds
+        int maxFreeDuration = 14400;
+
         int counter = 1;
         boolean chargeThisTime = true;
 
         ZoneBoundaryCrossing lastEvent = crossings.get(0);
 
         long totalDuration = 0;
-
 
         // Loop over all the crossings for this vehicle, starting at the second one
         for (ZoneBoundaryCrossing crossing : crossings.subList(1, crossings.size())) {
@@ -92,7 +94,7 @@ public class CongestionChargeSystem {
 
             // If we are entering after less than four hours, don't charge on the next exit event
             if (crossing instanceof EntryEvent && counter > 1) {
-                if (duration < 14400) {
+                if (duration < maxFreeDuration) {
                     chargeThisTime = false;
                 }
                 else {
@@ -107,7 +109,7 @@ public class CongestionChargeSystem {
                 totalDuration += duration;
 
                 // If inside for more than 4 hours in total, always charge the £12
-                if (totalDuration > 14400) {
+                if (totalDuration > maxFreeDuration) {
                     charge = new BigDecimal(12.00);
                     break;
                 }
@@ -115,15 +117,15 @@ public class CongestionChargeSystem {
 
                 if ((crossings.size() <= 2 || chargeThisTime) && lastEvent instanceof EntryEvent) {
 
-                    if (duration > 14400) {
+                    if (duration > maxFreeDuration) {
                         charge = charge.add(new BigDecimal(12.00));
                     }
 
-                    if (lastEvent.timestampHour() < 14 && duration <= 14400) {
+                    if (lastEvent.timestampHour() < 14 && duration <= maxFreeDuration) {
                         charge = charge.add(new BigDecimal(6.00));
                     }
 
-                    if (lastEvent.timestampHour() >= 14 && duration <= 14400) {
+                    if (lastEvent.timestampHour() >= 14 && duration <= maxFreeDuration) {
                         charge = charge.add(new BigDecimal(4.00));
                     }
                 }
