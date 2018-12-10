@@ -20,28 +20,6 @@ public class CongestionChargeSystemTest {
     private Vehicle vehicle1 = new Vehicle("A123 XYZ");
     private Vehicle vehicle2 = new Vehicle("J091 4PY");
 
-//    @Rule
-//
-//    public JUnitRuleMockery context = new JUnitRuleMockery();
-//
-//    PenaltiesService penaltiesService = context.mock(PenaltiesService.class);
-//
-//    OperationsTeam operationsTeam = context.mock(OperationsTeam.class);
-//
-//    @Test
-//
-//
-//    public void checkInvestigationIntoVehicleTriggered()
-//    {
-//
-//        congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("ABC"));
-//        congestionChargeSystem.vehicleEnteringZone(Vehicle.withRegistration("ABC"));
-//        context.checking(new Expectations() {{
-//            exactly(1).of(penaltiesService).triggerInvestigationInto(Vehicle.withRegistration("ABC"));
-//        }});
-//        congestionChargeSystem.calculateCharges();
-//    }
-
     @Test
 
     public void checkVehicleAddedToEventLog()
