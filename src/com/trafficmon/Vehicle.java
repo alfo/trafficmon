@@ -1,5 +1,7 @@
 package com.trafficmon;
 
+import java.util.Objects;
+
 public class Vehicle {
 
     private final String registration;
@@ -24,10 +26,10 @@ public class Vehicle {
 
         Vehicle vehicle = (Vehicle) o;
 
-        if (registration != null ? !registration.equals(vehicle.registration) : vehicle.registration != null)
-            return false;
+        if (Objects.equals(registration, vehicle.registration))
+            return true;
 
-        return true;
+        return false;
     }
 
     @Override
