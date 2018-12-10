@@ -114,7 +114,7 @@ public class CongestionChargeSystem {
                     break;
                 }
 
-
+                // If fewer than two visits then always charge, otherwise only charge if pre-conditions are true
                 if ((crossings.size() <= 2 || chargeThisTime) && lastEvent instanceof EntryEvent) {
 
                     if (duration > maxFreeDuration) {

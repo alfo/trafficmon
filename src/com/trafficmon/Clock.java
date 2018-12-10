@@ -8,6 +8,9 @@ public class Clock {
     private static Integer fakeMinute;
     private static Integer fakeSecond;
 
+    // Clock object that can either represent the true time, or a fake time used in tests
+    // to check the behaviour over different periods
+
     protected static void setFakeTime(Integer hour, Integer minute, Integer second) {
         fakeHour = hour;
         fakeMinute = minute;
@@ -20,6 +23,8 @@ public class Clock {
         fakeMinute = null;
         fakeSecond = null;
     }
+
+    // Methods below used to obtain the real/fake time
 
     protected static Integer getCurrentHour() {
         if (fakeHour != null) {
