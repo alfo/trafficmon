@@ -113,17 +113,17 @@ public class CongestionChargeSystem {
                 }
 
 
-                if (crossings.size() <= 2 || chargeThisTime) {
+                if ((crossings.size() <= 2 || chargeThisTime) && lastEvent instanceof EntryEvent) {
 
-                    if (lastEvent instanceof EntryEvent && duration > 14400) {
+                    if (duration > 14400) {
                         charge = charge.add(new BigDecimal(12.00));
                     }
 
-                    if (lastEvent instanceof EntryEvent && lastEvent.timestampHour() < 14 && duration <= 14400) {
+                    if (lastEvent.timestampHour() < 14 && duration <= 14400) {
                         charge = charge.add(new BigDecimal(6.00));
                     }
 
-                    if (lastEvent instanceof EntryEvent && lastEvent.timestampHour() >= 14 && duration <= 14400) {
+                    if (lastEvent.timestampHour() >= 14 && duration <= 14400) {
                         charge = charge.add(new BigDecimal(4.00));
                     }
                 }
